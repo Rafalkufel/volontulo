@@ -11,8 +11,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.text import slugify
 from django.utils.safestring import mark_safe
+from django.utils.text import slugify
 from django.views.generic import View
 
 from apps.volontulo.forms import (
@@ -91,15 +91,13 @@ class OffersCreate(View):
         organizations = request.user.userprofile.organizations.all()
 
         if not organizations.exists():
-            messages.info(
-                request, mark_safe(
+            messages.info(request, mark_safe(
                 "Nie masz jeszcze żadnej założonej organizacji"
                 " na volontuloapp.org. Aby założyć organizację,"
                 " <a href='{}'>kliknij tu.</a>".format(
                     reverse('organizations_create')
                 )
-                )
-            )
+            ))
             return redirect('offers_list')
 
         return render(
