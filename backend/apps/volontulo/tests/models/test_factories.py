@@ -1,4 +1,8 @@
-from django.contrib.auth.models import Group, Permission, User
+"""
+test module for factories
+"""
+
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from apps.volontulo.factories.factories import UserFactory, OrganizationFactory
@@ -6,6 +10,7 @@ from apps.volontulo.models import Organization
 
 
 class UserFactoryTestCase(TestCase):
+    """Test for UserFactory"""
     def setUp(self):
         u"""setting up each test"""
         # create user
@@ -13,7 +18,7 @@ class UserFactoryTestCase(TestCase):
         # create fake user
         UserFactory.create()
         self.last_add_user = User.objects.last()
-        
+
     def test_userfactory_firstname_lastname(self):
         """test wether UserFactory first_name fits to last_name"""
         tested_user = User.objects.get(first_name='Kornik')
@@ -41,11 +46,12 @@ class UserFactoryTestCase(TestCase):
 
 
 class OrganizationFactoryTestCase(TestCase):
+    """Test for OrganizationFactory"""
     def setUp(self):
         """Set up each test"""
         # test if organization is created
         OrganizationFactory.create(
-            name='Flota zjednoczonych sił', 
+            name='Flota zjednoczonych sił',
             address='Psia Wólka'
             )
 
@@ -55,7 +61,9 @@ class OrganizationFactoryTestCase(TestCase):
 
     def test_organizationfactory(self):
         """test if OrganizationFactory.create creates new Organization"""
-        test_organization = Organization.objects.get(name='Flota zjednoczonych sił')
+        test_organization = Organization.objects.get(
+            name='Flota zjednoczonych sił'
+        )
         self.assertEqual(test_organization.address, 'Psia Wólka')
 
     def test_organization_if_name_address_description_is_str(self):
