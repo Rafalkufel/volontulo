@@ -16,41 +16,41 @@ User = get_user_model()
 
 
 def organization_name():
-    '''Creates organization name consist of
+    """Creates organization name consist of
     predicate 1 + subject + predicate2 + propername
-    np. Wojewódzka Alternatywa Organizacyjna "Naprzód" '''
+    np. Wojewódzka Alternatywa Organizacyjna "Naprzód" """
     
     predicate1_dict = {
-        'meski':[
+        'meski': [
             'Krajowy', 'Wojewódzki', 'Powiatowy', 'Regionalny',
-            'Wielkopolski', 'Osiedlowy', 'Stołeczny' ],
-        'zenski':[
+            'Wielkopolski', 'Osiedlowy', 'Stołeczny'],
+        'zenski': [
             'Krajowa', 'Wojewódzka', 'Powiatowa', 'Regionalna',
-            'Wielkopolska', 'Osiedlowa', 'Stołeczna' ],
-        'nijaki':[
+            'Wielkopolska', 'Osiedlowa', 'Stołeczna'],
+        'nijaki': [
             'Krajowe', 'Wojewódzkie', 'Powiatowe', 'Regionalne',
-            'Wielkopolskie', 'Osiedlowe', 'Stołeczne' ]
+            'Wielkopolskie', 'Osiedlowe', 'Stołeczne']
         }
     noun_list = {
-        'Fundacja':'zenski',
-        'Rada':'zenski',
-        'Urząd':'meski',
-        'Zarząd':'meski',
-        'Delegatura':'zenski',
-        'Poradnia':'zenski',
-        'Szpital':'meski',
-        'Ogród':'meski',
-        'Koło':'3',
-        'Obwód':'meski'
+        'Fundacja': 'zenski',
+        'Rada': 'zenski',
+        'Urząd': 'meski',
+        'Zarząd': 'meski',
+        'Delegatura': 'zenski',
+        'Poradnia': 'zenski',
+        'Szpital': 'meski',
+        'Ogród': 'meski',
+        'Koło': '3',
+        'Obwód': 'meski'
         }
     predicate2_dict = {
-        'meski':[
+        'meski': [
             'Organizacyjny', 'Rejestrowy', 'Egzekutywny', 'Wspierający',
             'Tranakcyjny', 'Związkowy', 'Zbiorczy'],
-        'zenski':[
+        'zenski': [
             'Organizacyjna', 'Rejestrowa', 'Egzekutywna', 'Wspierająca',
             'Tranakcyjna', 'Związkowa', 'Zbiorcza'],
-        'nijaki':[
+        'nijaki': [
             'Organizacyjne', 'Rejestrowe', 'Egzekutywne', 'Wspierające',
             'Tranakcyjne', 'Związkowe', 'Zbiorcze']
         }
@@ -76,6 +76,7 @@ class UserProfileFactory(factory.DjangoModelFactory):
     class Meta:  # pylint: disable=C0111
         model = UserProfile
 
+
 class UserFactory(factory.DjangoModelFactory):
     """Factory for User."""
 
@@ -98,8 +99,9 @@ class UserFactory(factory.DjangoModelFactory):
     #     manager = cls._get_manager(model_class)
     #     return manager.create_user(*args, **kwargs)
 
+
 class OrganizationFactory(factory.DjangoModelFactory):
-    '''Factory for Organization'''
+    """Factory for Organization"""
 
     class Meta:
         model = Organization
