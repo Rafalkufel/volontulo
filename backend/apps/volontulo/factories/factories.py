@@ -40,7 +40,7 @@ def organization_name():
         'Poradnia': 'zenski',
         'Szpital': 'meski',
         'Ogród': 'meski',
-        'Koło': '3',
+        'Koło': 'nijaki',
         'Obwód': 'meski'
         }
     predicate2_dict = {
