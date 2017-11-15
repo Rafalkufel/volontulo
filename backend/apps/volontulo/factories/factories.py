@@ -19,7 +19,7 @@ def organization_name():
     """Creates organization name consist of
     predicate 1 + subject + predicate2 + propername
     np. Wojewódzka Alternatywa Organizacyjna "Naprzód" """
-    
+
     predicate1_dict = {
         'meski': [
             'Krajowy', 'Wojewódzki', 'Powiatowy', 'Regionalny',
@@ -67,7 +67,12 @@ def organization_name():
     predicate2 = (FuzzyChoice(predicate2_dict[noun_list[subject]])).fuzz()
     propername = (FuzzyChoice(propername_list)).fuzz()
 
-    return '{0} {1} {2} {3}'.format(predicate1, subject, predicate2, propername)
+    return '{0} {1} {2} {3}'.format(
+        predicate1,
+        subject,
+        predicate2,
+        propername
+    )
 
 
 class UserProfileFactory(factory.DjangoModelFactory):
