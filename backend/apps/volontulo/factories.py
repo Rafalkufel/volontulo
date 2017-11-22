@@ -7,12 +7,12 @@
 from django.contrib.auth import get_user_model
 import factory
 from factory.fuzzy import FuzzyChoice
-from faker import Faker
 
 from apps.volontulo.models import Organization, UserProfile
 
 
 User = get_user_model()
+
 
 class UserProfileFactory(factory.DjangoModelFactory):
     """Factory for user profile."""
@@ -45,9 +45,9 @@ class UserFactory(factory.DjangoModelFactory):
 class OrganizationFactory(factory.DjangoModelFactory):
     """Factory for Organization."""
 
-    def _organization_name():
+    def _organization_name():  # pylint: disable=E0211
         """Creates  a fake organization name.
-        
+
         Fake name consist of predicate1 + subject + predicate2 + propername
         np. 'Wojewódzka Alternatywa Organizacyjna "Naprzód"'.
         """
@@ -106,7 +106,7 @@ class OrganizationFactory(factory.DjangoModelFactory):
             propername
         )
 
-    class Meta:
+    class Meta:  # pylint: disable=C0111
         model = Organization
 
     name = factory.fuzzy.FuzzyAttribute(_organization_name)
