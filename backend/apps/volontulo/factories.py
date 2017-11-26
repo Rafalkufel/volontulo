@@ -3,12 +3,12 @@
 """
 .. module:: factories
 """
-
+import datetime
 from django.contrib.auth import get_user_model
 import factory
 from factory.fuzzy import FuzzyChoice
 
-from apps.volontulo.models import Organization, UserProfile
+from apps.volontulo.models import Organization, UserProfile, Offer
 
 
 User = get_user_model()
@@ -112,3 +112,71 @@ class OrganizationFactory(factory.DjangoModelFactory):
     name = factory.fuzzy.FuzzyAttribute(_organization_name)
     address = factory.Faker('address', locale='pl_PL')
     description = factory.Faker('paragraph', locale='pl_PL')
+
+
+class OfferFactory(factory.DjangoModelFactory):
+    """Factory for Offer"""
+
+    class Meta: # pylint: disable=C0111
+        model = Offer
+
+    organization = factory.SubFactory(OrganizationFactory)
+
+    @factory.post_generation
+    def volunteers(self, create, extracted, **kwargs): # pylint: disable=W0613
+        '''Manage ManyToMany field'''
+
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of Users were passed in, use them
+            for user in extracted:
+                self.user.add(user)
+
+    description = factory.Faker('paragraph')
+    requirements = factory.Faker('paragraph')
+    time_commitment = factory.Faker('paragraph')
+    benefits = factory.Faker('paragraph')
+    location = factory.Faker('address', locale='pl_PL')
+    title = factory.Faker('text', max_nb_chars=150)
+    started_at = factory.fuzzy.FuzzyDate(datetime.date(2017, 11, 4))
+    finished_at = factory.fuzzy.FuzzyDate(datetime.date(2017, 11, 4))
+    time_period = factory.Faker('text', max_nb_chars=150)
+    status_old = factory.fuzzy.FuzzyChoice(
+        choices=('NEW', 'ACTIVE', 'SUSPENDED')
+        )
+    offer_status = factory.fuzzy.FuzzyChoice(
+        choices=('unpublished', 'published', 'rejected')
+        )
+    recruitment_status = factory.fuzzy.FuzzyChoice(
+        choices=('open', 'supplemental', 'closed')
+        )
+    action_status = factory.fuzzy.FuzzyChoice(
+        choices=('future', 'ongoing', 'finished')
+        )
+    votes = factory.fuzzy.FuzzyChoice(choices=(0, 1))
+    recruitment_start_date = factory.fuzzy.FuzzyDate(
+        datetime.date(2017, 11, 4)
+        )
+    recruitment_end_date = factory.fuzzy.FuzzyDate(
+        datetime.date(2017, 11, 4)
+        )
+    reserve_recruitment = factory.fuzzy.FuzzyChoice(choices=(0, 1))
+    reserve_recruitment_start_date = factory.fuzzy.FuzzyDate(
+        datetime.date(2017, 11, 4)
+        )
+    reserve_recruitment_end_date = factory.fuzzy.FuzzyDate(
+        datetime.date(2017, 11, 4)
+        )
+    action_ongoing = factory.fuzzy.FuzzyChoice(choices=(0, 1))
+    constant_coop = factory.fuzzy.FuzzyChoice(choices=(0, 1))
+    action_start_date = factory.fuzzy.FuzzyDate(
+        datetime.date(2008, 1, 1)
+        )
+    action_end_date = factory.fuzzy.FuzzyDate(
+        datetime.date(2017, 11, 4)
+        )
+    volunteers_limit = factory.fuzzy.FuzzyInteger(0, 1000)
+    weight = factory.fuzzy.FuzzyInteger(0, 1000)
