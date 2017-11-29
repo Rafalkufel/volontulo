@@ -5,7 +5,9 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from apps.volontulo.factories import UserFactory, OrganizationFactory
+from apps.volontulo.factories import (
+    UserFactory, OrganizationFactory, OfferFactory
+    )
 from apps.volontulo.models import Organization
 
 
@@ -77,8 +79,10 @@ class OfferFactoryTestCase(TestCase):
     def setUp(self):
         """Set up test for OfferFactory"""
         self.fake_offer1 = OfferFactory.create()
-        self.fake_offer2 = OfferFactory.create(organization__name='Armia Zbawienia')
-    
+        self.fake_offer2 = OfferFactory.create(
+            organization__name='Armia Zbawienia'
+            )
+
     def test_if_offer_is_created(self):
+        """test if offer is created."""
         pass
-        
