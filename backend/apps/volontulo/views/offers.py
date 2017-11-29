@@ -93,14 +93,9 @@ class OffersCreate(View):
         if not organizations.exists():
             messages.info(request, mark_safe(
                 "Nie masz jeszcze żadnej założonej organizacji"
-<<<<<<< Updated upstream
                 " na {0}. Aby założyć organizację,"
                 " <a href='{1}'>kliknij tu.</a>".format(
                     settings.SYSTEM_DOMAIN,
-=======
-                " na volontulo.pl. Aby założyć organizację,"
-                " <a href='{}'>kliknij tu.</a>".format(
->>>>>>> Stashed changes
                     reverse('organizations_create')
                 )
             ))
