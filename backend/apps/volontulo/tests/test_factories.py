@@ -80,5 +80,5 @@ class OfferFactoryTestCase(TestCase):
         self.fake_offer2 = OfferFactory.create(organization__name='Armia Zbawienia')
     
     def test_if_offer_is_created(self):
+        pass
         
-

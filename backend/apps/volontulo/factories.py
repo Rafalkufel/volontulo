@@ -4,6 +4,7 @@
 .. module:: factories
 """
 import datetime
+
 from django.contrib.auth import get_user_model
 import factory
 from factory.fuzzy import FuzzyChoice
@@ -11,6 +12,7 @@ from factory.fuzzy import FuzzyChoice
 from apps.volontulo.models import Organization, UserProfile, Offer
 
 User = get_user_model()
+
 
 class UserProfileFactory(factory.DjangoModelFactory):
     """Factory for user profile."""
@@ -110,6 +112,7 @@ class OrganizationFactory(factory.DjangoModelFactory):
     name = factory.fuzzy.FuzzyAttribute(_organization_name)
     address = factory.Faker('address', locale='pl_PL')
     description = factory.Faker('paragraph', locale='pl_PL')
+<<<<<<< HEAD
 
 
 class OfferFactory(factory.DjangoModelFactory):
@@ -178,3 +181,5 @@ class OfferFactory(factory.DjangoModelFactory):
         )
     volunteers_limit = factory.fuzzy.FuzzyInteger(0, 1000)
     weight = factory.fuzzy.FuzzyInteger(0, 1000)
+=======
+>>>>>>> upstream/master
