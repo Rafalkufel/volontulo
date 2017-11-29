@@ -112,7 +112,6 @@ class OrganizationFactory(factory.DjangoModelFactory):
     name = factory.fuzzy.FuzzyAttribute(_organization_name)
     address = factory.Faker('address', locale='pl_PL')
     description = factory.Faker('paragraph', locale='pl_PL')
-<<<<<<< HEAD
 
 
 class OfferFactory(factory.DjangoModelFactory):
@@ -181,5 +180,3 @@ class OfferFactory(factory.DjangoModelFactory):
         )
     volunteers_limit = factory.fuzzy.FuzzyInteger(0, 1000)
     weight = factory.fuzzy.FuzzyInteger(0, 1000)
-=======
->>>>>>> upstream/master
