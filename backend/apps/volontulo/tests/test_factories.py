@@ -70,3 +70,15 @@ class OrganizationFactoryTestCase(TestCase):
         self.assertTrue(len(self.fake_organization.name) > 0)
         self.assertTrue(len(self.fake_organization.address) > 0)
         self.assertTrue(len(self.fake_organization.description) > 0)
+
+
+class OfferFactoryTestCase(TestCase):
+    """Test for OfferFactory."""
+    def setUp(self):
+        """Set up test for OfferFactory"""
+        self.fake_offer1 = OfferFactory.create()
+        self.fake_offer2 = OfferFactory.create(organization__name='Armia Zbawienia')
+    
+    def test_if_offer_is_created(self):
+        
+

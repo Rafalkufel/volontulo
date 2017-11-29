@@ -10,9 +10,7 @@ from factory.fuzzy import FuzzyChoice
 
 from apps.volontulo.models import Organization, UserProfile, Offer
 
-
 User = get_user_model()
-
 
 class UserProfileFactory(factory.DjangoModelFactory):
     """Factory for user profile."""
@@ -106,7 +104,6 @@ class OrganizationFactory(factory.DjangoModelFactory):
             propername
         )
 
-
     class Meta:  # pylint: disable=C0111
         model = Organization
 
@@ -117,7 +114,6 @@ class OrganizationFactory(factory.DjangoModelFactory):
 
 class OfferFactory(factory.DjangoModelFactory):
     """Factory for Offer"""
-
 
     class Meta:  # pylint: disable=C0111
         model = Offer
