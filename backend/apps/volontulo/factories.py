@@ -106,6 +106,7 @@ class OrganizationFactory(factory.DjangoModelFactory):
             propername
         )
 
+
     class Meta:  # pylint: disable=C0111
         model = Organization
 
@@ -117,13 +118,14 @@ class OrganizationFactory(factory.DjangoModelFactory):
 class OfferFactory(factory.DjangoModelFactory):
     """Factory for Offer"""
 
-    class Meta: # pylint: disable=C0111
+
+    class Meta:  # pylint: disable=C0111
         model = Offer
 
     organization = factory.SubFactory(OrganizationFactory)
 
     @factory.post_generation
-    def volunteers(self, create, extracted, **kwargs): # pylint: disable=W0613
+    def volunteers(self, create, extracted, **kwargs):  # pylint: disable=W0613
         '''Manage ManyToMany field'''
 
         if not create:
