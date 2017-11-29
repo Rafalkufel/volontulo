@@ -3,13 +3,14 @@
 """
 .. module:: factories
 """
-import datetime
 
+import datetime
 from django.contrib.auth import get_user_model
 import factory
 from factory.fuzzy import FuzzyChoice
 
 from apps.volontulo.models import Organization, UserProfile, Offer
+
 
 User = get_user_model()
 
