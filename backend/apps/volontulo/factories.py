@@ -12,6 +12,7 @@ from factory.fuzzy import FuzzyChoice
 
 from apps.volontulo.models import Organization, UserProfile, Offer
 
+
 User = get_user_model()
 
 
@@ -114,6 +115,7 @@ class OrganizationFactory(factory.DjangoModelFactory):
     address = factory.Faker('address', locale='pl_PL')
     description = factory.Faker('paragraph')
 
+
 class OfferFactory(factory.DjangoModelFactory):
     """Factory for Offer"""
 
@@ -160,8 +162,13 @@ class OfferFactory(factory.DjangoModelFactory):
         choices=('Future', 'Ongoing', 'Finished')
         )
     votes = factory.fuzzy.FuzzyChoice(choices=(True, False))
-    recruitment_start_date = factory.fuzzy.FuzzyDateTime(_start_date, _end_date)
-    recruitment_end_date = factory.fuzzy.FuzzyDateTime(_start_date, _end_date)
+    recruitment_start_date = factory.fuzzy.FuzzyDateTime(
+        _start_date,
+        _end_date
+        )
+    recruitment_end_date = factory.fuzzy.FuzzyDateTime(
+        _start_date,
+        _end_date)
     reserve_recruitment = factory.fuzzy.FuzzyChoice(choices=(True, False))
     reserve_recruitment_start_date = factory.fuzzy.FuzzyDateTime(
         _start_date,
@@ -173,7 +180,10 @@ class OfferFactory(factory.DjangoModelFactory):
         )
     action_ongoing = factory.fuzzy.FuzzyChoice(choices=(True, False))
     constant_coop = factory.fuzzy.FuzzyChoice(choices=(True, False))
-    action_start_date = factory.fuzzy.FuzzyDateTime(_start_date, _end_date)
+    action_start_date = factory.fuzzy.FuzzyDateTime(
+        _start_date,
+        _end_date
+        )
     action_end_date = factory.fuzzy.FuzzyDateTime(_start_date, _end_date)
     volunteers_limit = factory.fuzzy.FuzzyInteger(0, 1000)
     reserve_volunteers_limit = factory.fuzzy.FuzzyInteger(0, 1000)
