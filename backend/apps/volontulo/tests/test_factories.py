@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from apps.volontulo.factories import (
-    UserFactory, OrganizationFactory, OfferFactory
+    UserFactory, OrganizationFactory, OfferFactory, UserProfileFactory
     )
 from apps.volontulo.models import Organization, Offer
 
@@ -46,6 +46,43 @@ class UserFactoryTestCase(TestCase):
             self.totally_fake_user.email,
             self.totally_fake_user.username
             )
+
+
+class UserProfileFactoryTestCase(TestCase):
+    """Test for UserProfileFactory."""
+    def setUp(self):
+        OrganizationFactory.create(
+            name="Nazwa organizacji1",
+            )
+        OrganizationFactory.create()
+        # User is created as a Subfactory of UserProfile
+        self.fake_user_profile = UserProfileFactory.create(
+            user__first_name="Edmund",
+            organizations=Organization.objects.all(),
+            phone_no="22909"
+            )
+
+    def test_if_user_profile_has_been_created(self):
+        """Test if UserProfile has been created."""
+        self.assertEqual(self.fake_user_profile.phone_no, "22909")
+
+    def test_if_user_profile_is_connected_to_user(self):
+        """Test if UserProfile is connected to User."""
+        self.assertEqual(self.fake_user_profile.user.first_name, "Edmund")
+
+    def test_if_organizations_can_be_connected_with_User_Profile(self):
+        """Test m2m relation UserProfile-Organizations."""
+        organizations = self.fake_user_profile.organizations.all()
+        self.assertEqual(len(organizations), 2)
+        self.assertEqual(organizations[0].name, "Nazwa organizacji1")
+
+    def test_UserProfile_is_administrator_field(self):
+        """Test UserProfile is_administrator field."""
+        self.assertIsInstance(self.fake_user_profile.is_administrator, bool)
+
+    def test_UserProfil_phone_no_field(self):
+        """Test UserProfile phone_no field."""
+        self.assertFalse(self.fake_user_profile.phone_no.isalpha())
 
 
 class OrganizationFactoryTestCase(TestCase):

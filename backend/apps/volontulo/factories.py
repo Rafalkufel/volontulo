@@ -5,10 +5,13 @@
 """
 
 import datetime
+
 from django.contrib.auth import get_user_model
+# from django.db import models
 from django.utils import timezone
 import factory
 from factory.fuzzy import FuzzyChoice
+
 
 from apps.volontulo.models import Organization, UserProfile, Offer
 
@@ -21,6 +24,23 @@ class UserProfileFactory(factory.DjangoModelFactory):
 
     class Meta:  # pylint: disable=C0111
         model = UserProfile
+
+    user = factory.SubFactory(
+        'apps.volontulo.factories.UserFactory',
+        userprofile=None
+        )
+
+    @factory.post_generation
+    def organizations(self, create, extracted):
+        """Manage m2m relation."""
+        if not create:
+            return
+        if extracted:
+            for org in extracted:
+                self.organizations.add(org)
+
+    is_administrator = factory.fuzzy.FuzzyChoice(choices=[True, False])
+    phone_no = factory.Faker('phone_number', locale='pl_PL')
 
 
 class UserFactory(factory.DjangoModelFactory):
@@ -94,8 +114,6 @@ class OrganizationFactory(factory.DjangoModelFactory):
             '"Al Capone"', '"UKF"', '"Smak Miesiąca"'
             ]
 
-        # FuzzyChoice object
-
         subject = (FuzzyChoice(noun_list.keys())).fuzz()
         predicate1 = (FuzzyChoice(predicate1_dict[noun_list[subject]])).fuzz()
         predicate2 = (FuzzyChoice(predicate2_dict[noun_list[subject]])).fuzz()
@@ -128,7 +146,7 @@ class OfferFactory(factory.DjangoModelFactory):
     organization = factory.SubFactory(OrganizationFactory)
 
     @factory.post_generation
-    def volunteers(self, create, extracted, **kwargs):  # pylint: disable=W0613
+    def volunteers(self, create, extracted):
         '''Manage ManyToMany field'''
 
         if not create:
