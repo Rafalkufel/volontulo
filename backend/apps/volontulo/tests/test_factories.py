@@ -132,6 +132,9 @@ class OfferFactoryTestCase(TestCase):
             description="Zwięzły opis",
             organization__name="Nazwa odnośnej organizacji"
             )
+        self.fake_offer3 = OfferFactory.create(
+            organization=Organization.objects.last()
+            )
 
     def Test_if_users_have_been_created(self):
         """Testing if fake users have been created."""
