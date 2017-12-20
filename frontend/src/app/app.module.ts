@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { RedirectComponent } from './redirect.component';
 import { WindowService, WindowFactory } from './window.service';
+import { OrganizationService } from './organization/organization.service';
+import { OrganizationDetailsComponent } from './organization/organization-details.component';
 import { HomepageOfferComponent } from './homepage-offer/homepage-offer.component';
 import { HomePageComponent } from './home/homepage.component';
 import { FooterComponent } from './footer/footer.component';
@@ -25,6 +27,8 @@ import { OfferDetailComponent } from './offers/offer-detail/offer-detail.compone
 import { IconComponent } from './icon/icon.component';
 import { IconLabelComponent } from './icon-label/icon-label.component';
 import { BannerComponent } from './banner/banner.component';
+import { FaqOrganizationsComponent } from './static/faq-organizations.component';
+import { OfficeComponent } from './static/office/office.component';
 
 Raven.config(environment.sentryDSN).install();
 
@@ -40,12 +44,28 @@ const appRoutes: Routes = [
     component: HomePageComponent
   },
   {
+    path: 'organizations/:organizationSlug/:organizationId',
+    component: OrganizationDetailsComponent,
+  },
+  {
+    path: 'faq-organizations',
+    component: FaqOrganizationsComponent,
+  },
+  {
+    path: 'office',
+    component: OfficeComponent,
+  },
+  {
     path: 'o-nas',
     component: AboutUsComponent
   },
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'o-nas',
+    component: AboutUsComponent
   },
   {
     path: 'regulations',
@@ -68,6 +88,7 @@ const appRoutes: Routes = [
     HomePageComponent,
     HeaderComponent,
     FooterComponent,
+    OrganizationDetailsComponent,
     HomepageOfferComponent,
     CookieLawBannerComponent,
     AboutUsComponent,
@@ -76,7 +97,9 @@ const appRoutes: Routes = [
     OfferDetailComponent,
     IconComponent,
     IconLabelComponent,
-    BannerComponent
+    BannerComponent,
+    FaqOrganizationsComponent,
+    OfficeComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +113,7 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     OffersService,
+    OrganizationService,
     { provide: WindowService, useFactory: WindowFactory },
     { provide: ErrorHandler, useClass: RavenErrorHandler },
   ],
