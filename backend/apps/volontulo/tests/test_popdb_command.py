@@ -8,10 +8,10 @@ from django.test import TestCase
 
 
 class PopdbTest(TestCase):
-    """Test for popdb command."""
+    """Test for populate_database command."""
 
     def test_command_output(self):
-        """Testing if popdb command get proper output"""
+        """Testing if populate_database command get proper output"""
         out = StringIO()
-        call_command('popdb', stdout=out)
+        call_command('populate_database', stdout=out)
         self.assertIn('Database successfully populated', out.getvalue())
