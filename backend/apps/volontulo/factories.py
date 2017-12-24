@@ -25,7 +25,7 @@ class UserProfileFactory(factory.DjangoModelFactory):
         model = UserProfile
 
     user = factory.SubFactory(
-        'apps.volontulo.factories.UserFactory',
+        "apps.volontulo.factories.UserFactory",
         userprofile=None
         )
 
@@ -39,7 +39,7 @@ class UserProfileFactory(factory.DjangoModelFactory):
                 self.organizations.add(org)
 
     is_administrator = factory.fuzzy.FuzzyChoice(choices=[True, False])
-    phone_no = factory.Faker('phone_number', locale='pl_PL')
+    phone_no = factory.Faker("phone_number", locale="pl_PL")
 
 
 class UserFactory(factory.DjangoModelFactory):
@@ -48,14 +48,14 @@ class UserFactory(factory.DjangoModelFactory):
     class Meta:  # pylint: disable=C0111
         model = User
 
-    first_name = factory.Faker('first_name', locale='pl_PL')
-    last_name = factory.Faker('last_name', locale='pl_PL')
-    email = factory.Faker('email', locale='pl_PL')
+    first_name = factory.Faker("first_name", locale="pl_PL")
+    last_name = factory.Faker("last_name", locale="pl_PL")
+    email = factory.Faker("email", locale="pl_PL")
     username = factory.LazyAttribute(lambda obj: obj.email)
 
     is_active = True
-    password = 'password123'
-    userprofile = factory.RelatedFactory(UserProfileFactory, 'user')
+    password = "password123"
+    userprofile = factory.RelatedFactory(UserProfileFactory, "user")
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
@@ -70,47 +70,47 @@ class OrganizationFactory(factory.DjangoModelFactory):
         """Creates  a fake organization name.
 
         Fake name consist of predicate1 + subject + predicate2 + propername
-        np. 'Wojewódzka Alternatywa Organizacyjna "Naprzód"'.
+        np. "Wojewódzka Alternatywa Organizacyjna "Naprzód"".
         """
 
         predicate1_dict = {
-            'masculine': [
-                'Krajowy', 'Wojewódzki', 'Powiatowy', 'Regionalny',
-                'Wielkopolski', 'Osiedlowy', 'Stołeczny'],
-            'feminine': [
-                'Krajowa', 'Wojewódzka', 'Powiatowa', 'Regionalna',
-                'Wielkopolska', 'Osiedlowa', 'Stołeczna'],
-            'neutrum': [
-                'Krajowe', 'Wojewódzkie', 'Powiatowe', 'Regionalne',
-                'Wielkopolskie', 'Osiedlowe', 'Stołeczne']
+            "masculine": [
+                "Krajowy", "Wojewódzki", "Powiatowy", "Regionalny",
+                "Wielkopolski", "Osiedlowy", "Stołeczny"],
+            "feminine": [
+                "Krajowa", "Wojewódzka", "Powiatowa", "Regionalna",
+                "Wielkopolska", "Osiedlowa", "Stołeczna"],
+            "neutrum": [
+                "Krajowe", "Wojewódzkie", "Powiatowe", "Regionalne",
+                "Wielkopolskie", "Osiedlowe", "Stołeczne"]
             }
         noun_list = {
-            'Fundacja': 'feminine',
-            'Rada': 'feminine',
-            'Urząd': 'masculine',
-            'Zarząd': 'masculine',
-            'Delegatura': 'feminine',
-            'Poradnia': 'feminine',
-            'Szpital': 'masculine',
-            'Ogród': 'masculine',
-            'Koło': 'neutrum',
-            'Obwód': 'masculine'
+            "Fundacja": "feminine",
+            "Rada": "feminine",
+            "Urząd": "masculine",
+            "Zarząd": "masculine",
+            "Delegatura": "feminine",
+            "Poradnia": "feminine",
+            "Szpital": "masculine",
+            "Ogród": "masculine",
+            "Koło": "neutrum",
+            "Obwód": "masculine"
             }
         predicate2_dict = {
-            'masculine': [
-                'Organizacyjny', 'Rejestrowy', 'Egzekutywny', 'Wspierający',
-                'Transakcyjny', 'Związkowy', 'Zbiorczy'],
-            'feminine': [
-                'Organizacyjna', 'Rejestrowa', 'Egzekutywna', 'Wspierająca',
-                'Transakcyjna', 'Związkowa', 'Zbiorcza'],
-            'neutrum': [
-                'Organizacyjne', 'Rejestrowe', 'Egzekutywne', 'Wspierające',
-                'Transakcyjne', 'Związkowe', 'Zbiorcze']
+            "masculine": [
+                "Organizacyjny", "Rejestrowy", "Egzekutywny", "Wspierający",
+                "Transakcyjny", "Związkowy", "Zbiorczy"],
+            "feminine": [
+                "Organizacyjna", "Rejestrowa", "Egzekutywna", "Wspierająca",
+                "Transakcyjna", "Związkowa", "Zbiorcza"],
+            "neutrum": [
+                "Organizacyjne", "Rejestrowe", "Egzekutywne", "Wspierające",
+                "Transakcyjne", "Związkowe", "Zbiorcze"]
             }
 
         propername_list = [
-            '"Wspiera się"', '"Totuus"', '"Zawsze Razem"', '"W Kupie Siła"',
-            '"Al Capone"', '"UKF"', '"Smak Miesiąca"'
+            "Wspiera się", "Totuus", "Zawsze Razem", "W Kupie Siła",
+            "Al Capone", "UKF", "Smak Miesiąca"
             ]
 
         subject = (FuzzyChoice(noun_list.keys())).fuzz()
@@ -118,7 +118,7 @@ class OrganizationFactory(factory.DjangoModelFactory):
         predicate2 = (FuzzyChoice(predicate2_dict[noun_list[subject]])).fuzz()
         propername = (FuzzyChoice(propername_list)).fuzz()
 
-        return '{0} {1} {2} {3}'.format(
+        return "{0} {1} {2} {3}".format(
             predicate1,
             subject,
             predicate2,
@@ -129,8 +129,8 @@ class OrganizationFactory(factory.DjangoModelFactory):
         model = Organization
 
     name = factory.fuzzy.FuzzyAttribute(_organization_name)
-    address = factory.Faker('address', locale='pl_PL')
-    description = factory.Faker('paragraph')
+    address = factory.Faker("address", locale="pl_PL")
+    description = factory.Faker("paragraph")
 
 
 class OfferFactory(factory.DjangoModelFactory):
@@ -146,7 +146,7 @@ class OfferFactory(factory.DjangoModelFactory):
 
     @factory.post_generation
     def volunteers(self, create, extracted):
-        '''Manage ManyToMany field'''
+        """Manage ManyToMany field"""
 
         if not create:
             # Simple build, do nothing.
@@ -157,26 +157,26 @@ class OfferFactory(factory.DjangoModelFactory):
             for user in extracted:
                 self.volunteers.add(user)
 
-    description = factory.Faker('paragraph')
-    requirements = factory.Faker('paragraph')
-    time_commitment = factory.Faker('paragraph')
-    benefits = factory.Faker('paragraph')
-    location = factory.Faker('address', locale='pl_PL')
-    title = factory.Faker('text', max_nb_chars=150)
+    description = factory.Faker("paragraph")
+    requirements = factory.Faker("paragraph")
+    time_commitment = factory.Faker("paragraph")
+    benefits = factory.Faker("paragraph")
+    location = factory.Faker("address", locale="pl_PL")
+    title = factory.Faker("text", max_nb_chars=150)
     started_at = factory.fuzzy.FuzzyDateTime(_start_date, _end_date)
     finished_at = factory.fuzzy.FuzzyDateTime(_start_date, _end_date)
-    time_period = factory.Faker('text', max_nb_chars=150)
+    time_period = factory.Faker("text", max_nb_chars=150)
     status_old = factory.fuzzy.FuzzyChoice(
-        choices=('NEW', 'ACTIVE', 'SUSPENDED')
+        choices=("NEW", "ACTIVE", "SUSPENDED")
         )
     offer_status = factory.fuzzy.FuzzyChoice(
-        choices=('Unpublished', 'Published', 'Rejected')
+        choices=("Unpublished", "Published", "Rejected")
         )
     recruitment_status = factory.fuzzy.FuzzyChoice(
-        choices=('Open', 'Supplemental', 'Closed')
+        choices=("Open", "Supplemental", "Closed")
         )
     action_status = factory.fuzzy.FuzzyChoice(
-        choices=('Future', 'Ongoing', 'Finished')
+        choices=("Future", "Ongoing", "Finished")
         )
     votes = factory.fuzzy.FuzzyChoice(choices=(True, False))
     recruitment_start_date = factory.fuzzy.FuzzyDateTime(

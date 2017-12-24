@@ -17,7 +17,7 @@ class UserFactoryTestCase(TestCase):
     """Test for UserFactory."""
     def setUp(self):
         """setting up each test."""
-        UserFactory.create(first_name='nie-Jan', last_name='nie-Kowalski')
+        UserFactory.create(first_name="nie-Jan", last_name="nie-Kowalski")
         self.totally_fake_user = UserFactory.create()
 
     def test_factories_write_to_db(self):
@@ -25,23 +25,23 @@ class UserFactoryTestCase(TestCase):
         self.assertEqual(User.objects.count(), 2)
 
     def test_UserFactory_firstname_lastname(self):
-        """Testing if UserFactory first_name fits to last_name."""
-        tested_user = User.objects.get(first_name='nie-Jan')
-        self.assertEqual(tested_user.last_name, 'nie-Kowalski')
+        """Test if UserFactory first_name fits to last_name."""
+        tested_user = User.objects.get(first_name="nie-Jan")
+        self.assertEqual(tested_user.last_name, "nie-Kowalski")
 
     def test_UserFactory_faker_if_first_last_name_is_str(self):
-        """Testing if created user.first_name,last_name is str and char>0."""
+        """Test if created user.first_name,last_name is str and char>0."""
         self.assertTrue(isinstance(self.totally_fake_user.first_name, str))
         self.assertTrue(isinstance(self.totally_fake_user.last_name, str))
         self.assertTrue(len(self.totally_fake_user.first_name) > 0)
         self.assertTrue(len(self.totally_fake_user.last_name) > 0)
 
     def test_userfactory_faker_if_email_has_at(self):
-        """Testing if email of last created user contains an @. """
-        self.assertIn('@', self.totally_fake_user.email)
+        """Test if email of last created user contains an @. """
+        self.assertIn("@", self.totally_fake_user.email)
 
     def test_userfactory_faker_email_is_the_same_as_username(self):
-        """Testing if email equals user_name."""
+        """Test if email equals user_name."""
         self.assertEqual(
             self.totally_fake_user.email,
             self.totally_fake_user.username
@@ -90,17 +90,17 @@ class OrganizationFactoryTestCase(TestCase):
     def setUp(self):
         """Set up each test"""
         OrganizationFactory.create(
-            name='Flota zjednoczonych sił',
-            address='Psia Wólka'
+            name="Flota zjednoczonych sił",
+            address="Psia Wólka"
             )
         self.fake_organization = OrganizationFactory.create()
 
     def test_organizationfactory(self):
-        """Testing if OrganizationFactory.create creates new Organization."""
+        """Test if OrganizationFactory.create creates new Organization."""
         test_organization = Organization.objects.get(
-            name='Flota zjednoczonych sił'
+            name="Flota zjednoczonych sił"
         )
-        self.assertEqual(test_organization.address, 'Psia Wólka')
+        self.assertEqual(test_organization.address, "Psia Wólka")
 
     def test_organization_if_name_address_description_is_str(self):
         """Test if organization name/address/description is str and char>0."""
@@ -137,20 +137,20 @@ class OfferFactoryTestCase(TestCase):
             )
 
     def Test_if_users_have_been_created(self):
-        """Testing if fake users have been created."""
+        """Test if fake users have been created."""
         self.assertTrue(len(User.objects.all()) == 2)
 
     def Test_if_fake_organization_has_been_created(self):
-        """Testing fake organization created by SubFactory."""
+        """Test fake organization created by SubFactory."""
         self.assertTrue(len(Organization.objects.all()) == 2)
 
     def Test_if_offer_has_been_created(self):
-        """Testing if offer has been created."""
+        """Test if offer has been created."""
         created_offer = Offer.objects.get(title="Jakiś tytuł")
         self.assertEqual(created_offer.description, "Zwięzły opis")
 
     def Test_if_offer_is_connected_with_some_organization(self):
-        """Testing if offer is connected with organization."""
+        """Test if offer is connected with organization."""
         fake_offer_with_organization = Offer.objects.filter(
             title="Jakiś tytuł"
             )[0]
@@ -160,7 +160,7 @@ class OfferFactoryTestCase(TestCase):
             )
 
     def Test_if_offer_is_connected_with_some_volonteer(self):
-        """Testing if offer is connected with volunteer."""
+        """Test if offer is connected with volunteer."""
         fake_offer = Offer.objects.all()[0]
         fake_offer_volunteers1 = fake_offer.volunteers.filter(
             first_name="Fake user first_name1"
@@ -174,7 +174,7 @@ class OfferFactoryTestCase(TestCase):
         self.assertTrue(connected_user2.last_name, "Fake user last_name2")
 
     def test_offers_paragraph_is_str(self):
-        """Testing if offers textFields are str and chr>0."""
+        """Test if offers textFields are str and chr>0."""
         description = self.fake_offer1.description
         self.assertIsInstance(description, str)
         self.assertTrue(len(description) > 0)
@@ -198,14 +198,14 @@ class OfferFactoryTestCase(TestCase):
         self.assertTrue(len(location) > 0)
 
     def test_offers_boolean_fields(self):
-        """Testing if offers booleanFields are 0 or 1."""
+        """Test if offers booleanFields are 0 or 1."""
         self.assertIsInstance(self.fake_offer1.votes, bool)
         self.assertIsInstance(self.fake_offer1.reserve_recruitment, bool)
         self.assertIsInstance(self.fake_offer1.action_ongoing, bool)
         self.assertIsInstance(self.fake_offer1.constant_coop, bool)
 
     def test_offers_datatime_fields(self):
-        """Testing if offers datatimeFields are proper type."""
+        """Test if offers datatimeFields are proper type."""
         self.assertIsInstance(self.fake_offer1.started_at, datetime.datetime)
         self.assertIsInstance(self.fake_offer1.started_at, datetime.datetime)
         self.assertIsInstance(
@@ -230,22 +230,22 @@ class OfferFactoryTestCase(TestCase):
             )
 
     def test_offer_if_choices_takes_proper_values(self):
-        """Testing if fields with choices takes proper values."""
+        """Test if fields with choices takes proper values."""
         self.assertIn(
             self.fake_offer1.status_old,
-            ['NEW', 'ACTIVE', 'SUSPENDED']
+            ["NEW", "ACTIVE", "SUSPENDED"]
             )
         self.assertIn(
             self.fake_offer1.offer_status,
-            ['Unpublished', 'Published', 'Rejected']
+            ["Unpublished", "Published", "Rejected"]
             )
         self.assertIn(
             self.fake_offer1.recruitment_status,
-            ['Open', 'Supplemental', 'Closed']
+            ["Open", "Supplemental", "Closed"]
             )
         self.assertIn(
             self.fake_offer1.action_status,
-            ['Future', 'Ongoing', 'Finished']
+            ["Future", "Ongoing", "Finished"]
             )
 
     def test_offer_if_integerField_are_proper_type(self):
